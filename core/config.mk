@@ -40,6 +40,8 @@ $(warning The build system needs unmodified output of grep.)
 $(error Please remove --color=always from your  $$GREP_OPTIONS)
 endif
 
+UNAME := $(shell uname -sm)
+
 # Standard source directories.
 SRC_DOCS:= $(TOPDIR)docs
 # TODO: Enforce some kind of layering; only add include paths
@@ -605,12 +607,6 @@ ifneq ($(HOST_JDK_TOOLS_JAR),)
 ifeq ($(wildcard $(HOST_JDK_TOOLS_JAR)),)
 $(error Error: could not find jdk tools.jar at $(HOST_JDK_TOOLS_JAR), please check if your JDK was installed correctly)
 endif
-endif
-
-# Is the host JDK 64-bit version?
-HOST_JDK_IS_64BIT_VERSION :=
-ifneq ($(filter 64-Bit, $(shell java -version 2>&1)),)
-HOST_JDK_IS_64BIT_VERSION := true
 endif
 endif  # CALLED_FROM_SETUP not true
 
